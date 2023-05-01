@@ -1,0 +1,38 @@
+.product-component {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .info {
+      display: flex;
+      align-items: center;
+      img {
+        clip-path: circle(33.2% at 50% 50%);
+        width: 100px;
+      }
+      .user-details {
+        display: flex;
+        flex-direction: column;
+        h3 {
+          font-size: max(1rem, 0.9vw);
+        }
+      }
+    }
+    .panel-links {
+      display: flex;
+      flex-direction: column;
+      padding: 0 10%;
+      gap: 10px;
+      a {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        font-size: max(1rem, 0.9vw);
+      }
+    }
+  }
+}
