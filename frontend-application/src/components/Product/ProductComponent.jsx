@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BiHomeAlt2, BiNetworkChart } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
-import "./product.scss";
+// import "./product.scss";
 import bill from "../../assets/bill.png";
 import ProductView from "./ProductView";
 
 const ProductComponent = () => {
   return (
-    <div className='product-component component-layout'>
-      {/* <div className='left-panel'>
+    <div className='flex'>
+      <div className='flex items-center'>
         <div className='info'>
           <img src={bill} alt='Image' />
           <div className='user-details'>
@@ -31,8 +31,7 @@ const ProductComponent = () => {
             Organizations
           </Link>
         </div>
-      </div> */}
-      <ProductView />
+      </div>
     </div>
   );
 };
