@@ -1,11 +1,9 @@
 import React from "react";
-import ProductComponent from "../components/Product/ProductComponent";
 import ProductView from "../components/Product/ProductView";
 
 const Product = () => {
   return (
-    <div className="flex-col">
-      {/* <ProductComponent /> */}
+    <div className='flex-col'>
       <ProductView />
     </div>
   );

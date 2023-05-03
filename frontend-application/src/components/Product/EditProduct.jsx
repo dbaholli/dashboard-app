@@ -1,23 +1,46 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { updateProduct } from "../../actions/productActions";
 
 const EditProduct = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const product = location.state;
 
   const [title, setTitle] = useState(product.title);
-  const [company, setCompany] = useState(product.company.name);
+  const [companyName, setCompanyName] = useState(product.company.name);
   const [investmentOffer, setInvestmentOffer] = useState(
     product.investmentEffort
   );
-  const [image, setImage] = useState(product.picture);
+  const [imageUrl, setImageUrl] = useState(product.picture);
+  const [successData, setSuccessData] = useState(false);
+  const [errorData, setErrorData] = useState(false);
 
-  console.log("location state", product);
+  // console.log("location state", product);
+
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const { success, error } = productUpdate;
+
+  useEffect(() => {
+    if (success) {
+      console.log("Product updated successfully!");
+      setErrorData(false);
+      setSuccessData(true);
+    } else if (error) {
+      console.log("Product update failed", error);
+      setSuccessData(false);
+      setErrorData(true);
+    }
+  }, [success, error]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("update", title, companyName, investmentOffer, imageUrl);
+    dispatch(
+      updateProduct(product.id, title, companyName, investmentOffer, imageUrl)
+    );
   };
 
   return (
@@ -85,8 +108,8 @@ const EditProduct = () => {
             type='text'
             id='company'
             name='company'
-            value={company}
-            onChange={(event) => setCompany(event.target.value)}
+            value={companyName}
+            onChange={(event) => setCompanyName(event.target.value)}
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
           />
         </div>
@@ -98,8 +121,8 @@ const EditProduct = () => {
             type='text'
             id='image'
             name='image'
-            value={image}
-            onChange={(event) => setImage(event.target.value)}
+            value={imageUrl}
+            onChange={(event) => setImageUrl(event.target.value)}
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
           />
         </div>
@@ -110,6 +133,21 @@ const EditProduct = () => {
           >
             Save
           </button>
+          <h1
+            className={`${
+              successData
+                ? "text-blue-500 font-bold text-lg"
+                : errorData
+                ? "text-red-500 font-bold text-lg"
+                : null
+            }`}
+          >
+            {successData
+              ? "Successfully updated!"
+              : errorData
+              ? "Error while trying to update!"
+              : null}
+          </h1>
         </div>
       </form>
     </>
